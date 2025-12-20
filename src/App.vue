@@ -326,7 +326,7 @@
           </button>
         </div>
 
-        <div :class="['w-full h-full flex flex-col relative', selectedCard ? 'overflow-y-auto pr-8 custom-scrollbar' : 'overflow-hidden pt-12']">
+        <div v-if="card.title" :class="['w-full h-full flex flex-col relative', selectedCard ? 'overflow-y-auto pr-8 custom-scrollbar' : 'overflow-hidden pt-12']">
           <!-- 分类标签区域 -->
           <div class="flex items-center justify-between mb-4">
             <div class="flex items-center gap-3">
@@ -562,7 +562,14 @@ import html2canvas from 'html2canvas'
 import { getPsychologyCard, getPsychologyCardFromSearch, getQuickAnnotation, getSearchSuggestions } from './aiService'
 
 // --- 状态变量 ---
-const cards = ref(Array(5).fill().map((_, i) => ({ id: i, title: 'Loading', isRefreshing: true, isFetchingRelated: false, isDragging: false, isDeleting: false, dragOffset: 0, wasDragged: false, hasMoved: false })))
+const cards = ref(Array(5).fill().map((_, i) => ({ 
+  id: i, 
+  title: '', 
+  tag: '', 
+  brief: '', 
+  isRefreshing: true, 
+  isFetchingRelated: false 
+})))
 const archive = ref([])
 const selectedCard = ref(null)
 const archiveCard = ref(null) // 收藏夹中显示的卡牌
